@@ -7,6 +7,8 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import { ChevronLeft, ChevronRight, LayoutGrid, List, AlertCircle } from 'lucide-react';
 import { cn } from '@/utils';
 
+// Products are server-fetched in layout.tsx via initialProducts, so this page
+// renders with data immediately — no client-side fetch needed for first load.
 const ITEMS_PER_PAGE = 12;
 
 type SortKey = 'newest' | 'price-low' | 'price-high' | 'popular';

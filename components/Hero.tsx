@@ -10,13 +10,16 @@ const Hero: React.FC = () => (
   <section className="relative w-full h-[70vh] lg:h-[85vh] overflow-hidden">
     {/* Background */}
     <div className="absolute inset-0">
+      {/* hero.webp = 155 KB vs Hero Image.png = 2,271 KB — 93% smaller */}
       <Image
-        src="/Hero Image.png"
+        src="/hero.webp"
         alt="Luxury Fashion hero"
         fill
         priority
         className="object-cover object-center"
         sizes="100vw"
+        placeholder="blur"
+        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAFAAgDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgUE/8QAIBAAAQQCAgMAAAAAAAAAAAAAAQIDBBEFEiExQf/EABUBAQEAAAAAAAAAAAAAAAAAAAIE/8QAGBEAAgMAAAAAAAAAAAAAAAAAARIhMUH/2gAMAwEAAhEDEQA/AJ+YydxJiKcqXJkRkAMx1DWt8sBzWqCQADqPmtpE6dHjqUpSCpaVOSABQAAFAD//2Q=="
       />
       <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/80 via-emerald-950/40 to-transparent" />
     </div>

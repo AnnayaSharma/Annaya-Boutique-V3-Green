@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { ShopProvider } from '@/context/ShopContext';
@@ -28,6 +28,29 @@ export const metadata: Metadata = {
   description:
     'Discover premium ethnic wear — sarees, suits, gowns & more. Curated collections for the modern Indian woman.',
   keywords: ['sarees', 'ethnic wear', 'boutique', 'Indian fashion', 'gowns'],
+  metadataBase: new URL('https://ananyashopping.site'),
+  openGraph: {
+    title: 'Ananya Boutique — Elegance in Every Thread',
+    description: 'Premium ethnic wear — sarees, suits, gowns & more.',
+    url: 'https://ananyashopping.site',
+    siteName: 'Ananya Boutique',
+    images: [{ url: '/hero.webp', width: 1536, height: 1024 }],
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ananya Boutique — Elegance in Every Thread',
+    description: 'Premium ethnic wear — sarees, suits, gowns & more.',
+    images: ['/hero.webp'],
+  },
+};
+
+// Viewport is now a separate export in Next.js 14+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#064e3b',
 };
 
 export default async function RootLayout({
@@ -35,8 +58,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Fetch initial products on the server to reduce edge requests and improve LCP
-  let initialProducts = [];
+  // ─── Server-side product fetch ────────────────────────────────────────────
+  // Products are fetched HERE on the server once per request, injected as
+  // initialProducts into ShopProvider. This means:
+  //   1. No client-side /api/products fetch on first load (saves edge requests)
+  //   2. Products are available immediately — no loading flash
+  //   3. The /api/products route is only hit by direct API callers or ISR
+  let initialProducts: any[] = [];
   try {
     await connectDB();
     const products = await ProductModel.find().sort({ createdAt: -1 }).lean();

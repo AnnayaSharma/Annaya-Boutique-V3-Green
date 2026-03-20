@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { Quote } from 'lucide-react';
 
 const TESTIMONIALS = [
@@ -79,17 +78,27 @@ const TESTIMONIALS = [
   }
 ];
 
-const AVATAR_IMAGES = [
-  'https://www.ananyashopping.site/1.jpg',
-  'https://www.ananyashopping.site/2.jpg',
-  'https://www.ananyashopping.site/3.jpg',
-  'https://www.ananyashopping.site/4.jpg',
-  'https://www.ananyashopping.site/5.jpg',
-  'https://www.ananyashopping.site/6.jpg'
+// Avatar colours cycle through a warm emerald palette — no remote images needed.
+// This eliminates 12 /_next/image edge requests every time the homepage loads.
+const AVATAR_COLOURS = [
+  'bg-emerald-100 text-emerald-800',
+  'bg-teal-100 text-teal-800',
+  'bg-green-100 text-green-800',
+  'bg-lime-100 text-lime-800',
+  'bg-emerald-200 text-emerald-900',
+  'bg-teal-200 text-teal-900',
 ];
 
+const getInitials = (name: string) =>
+  name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+
 const TestimonialCard = ({ t }: { t: typeof TESTIMONIALS[0] }) => {
-  const imagePath = AVATAR_IMAGES[(t.id - 1) % AVATAR_IMAGES.length];
+  const colourClass = AVATAR_COLOURS[(t.id - 1) % AVATAR_COLOURS.length];
 
   return (
     <div
@@ -98,13 +107,8 @@ const TestimonialCard = ({ t }: { t: typeof TESTIMONIALS[0] }) => {
       <Quote className="absolute top-6 right-6 text-emerald-950/5 group-hover:text-luxury-gold/20 transition-colors" size={40} />
 
       <div className="flex items-center gap-4 mb-4">
-        <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-emerald-100 flex items-center justify-center bg-gray-50">
-          <Image
-            src={imagePath}
-            alt={t.name}
-            fill
-            className="object-cover"
-          />
+        <div className={`w-12 h-12 rounded-full flex items-center justify-center border-2 border-emerald-100 font-bold text-sm select-none shrink-0 ${colourClass}`}>
+          {getInitials(t.name)}
         </div>
         <div>
           <h4 className="text-sm font-bold text-emerald-950">{t.name}</h4>

@@ -112,11 +112,12 @@ export default function HomePage() {
         <section className="mt-12 px-4 lg:px-8">
           <div className="relative h-64 lg:h-96 rounded-[2.5rem] overflow-hidden group">
             <Image
-              src="/Hero Image.png"
+              src="/hero.webp"
               alt="Bridal Collection"
               fill
               className="object-cover transition-transform duration-1000 group-hover:scale-105"
-              sizes="100vw"
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-l from-emerald-950/90 via-emerald-950/40 to-transparent flex flex-col justify-center items-end px-8 lg:px-16 text-right">
               <span className="text-luxury-gold text-xs font-bold uppercase tracking-[0.4em] mb-4">
@@ -187,11 +188,12 @@ export default function HomePage() {
         <section className="mt-20 px-4 lg:px-8">
           <div className="relative h-64 lg:h-96 rounded-[2.5rem] overflow-hidden group">
             <Image
-              src="/Image 2.jpg"
+              src="/image2.webp"
               alt="Luxury Collection"
               fill
               className="object-cover transition-transform duration-1000 group-hover:scale-105"
-              sizes="100vw"
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-950/40 to-transparent flex flex-col justify-center px-8 lg:px-16">
               <span className="text-luxury-gold text-xs font-bold uppercase tracking-[0.4em] mb-4">

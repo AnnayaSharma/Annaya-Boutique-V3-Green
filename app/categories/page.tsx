@@ -130,6 +130,7 @@ function CategoriesContent() {
                 src={cat.thumbnail}
                 alt={cat.name}
                 fill
+                loading="lazy"
                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />

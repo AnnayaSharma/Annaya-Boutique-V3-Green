@@ -31,7 +31,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     return notFound();
   }
 
-  // Serialise for props
+  // Serialise for props - ensure all nested objects are plain JS objects
   const product = {
     ...rawProduct,
     id: rawProduct._id.toString(),
@@ -39,6 +39,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     __v: undefined,
     createdAt: rawProduct.createdAt?.toISOString?.() ?? null,
     updatedAt: rawProduct.updatedAt?.toISOString?.() ?? null,
+    // Explicitly map nested arrays that might contain non-serializable BSON types
+    colors: rawProduct.colors?.map((c: any) => ({
+      name: c.name,
+      hex: c.hex,
+    })) ?? [],
   };
 
   return <ProductDetailView initialProduct={product} />;
