@@ -259,8 +259,8 @@ export default function ProductDetailView({ initialProduct }: ProductDetailViewP
 
               <button
                 onClick={() => {
-                  const message = `Hello Ananya Boutique! I'm interested in ordering:\n\n*${product.name}*\nPrice: ${formatPrice(product.price)}\nSize: ${selectedSize}\n\nLink: ${window.location.href}`;
-                  window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`, '_blank');
+                  const waMessage = `Hello!\n\nI'm interested in ordering the *${product.name}*.\n\nSize: ${selectedSize}\nColor: Any Colour\nPrice: ${formatPrice(product.price)}\n\nIs this available?`;
+                  window.open(`https://wa.me/${WHATSAPP_NUMBER.replace(/\s+/g, '')}?text=${encodeURIComponent(waMessage)}`, '_blank');
                 }}
                 className="w-full h-16 rounded-full border-2 border-emerald-900/20 text-emerald-950 font-bold tracking-widest bg-green-300 hover:bg-emerald-50 transition-all flex items-center justify-center gap-3"
               >

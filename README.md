@@ -67,7 +67,7 @@ Edit `.env.local`:
 
 ```env
 MONGODB_URI=mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/ananya?retryWrites=true&w=majority
-NEXT_PUBLIC_WHATSAPP_NUMBER=919876543210
+NEXT_PUBLIC_WHATSAPP_NUMBER=917494954286
 ```
 
 ### 3. Run the development server

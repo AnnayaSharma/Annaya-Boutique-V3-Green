@@ -12,21 +12,26 @@ import { motion } from 'motion/react';
 export default function CartPage() {
   const { cart, totalPrice, clearCart } = useShop();
 
-  // BUG FIX: WhatsApp number sourced from env variable, not hardcoded
   const handleCheckout = () => {
-    const itemsList = cart
+    const waLines = cart
       .map(
         (item) =>
           `• ${item.name} (Size: ${item.selectedSize}) ×${item.quantity} — ${formatPrice(item.price * item.quantity)}`
       )
       .join('\n');
 
-    const message =
-      `Hello Ananya Boutique! I'd like to place an order:\n\n${itemsList}\n\n` +
-      `Total: ${formatPrice(totalPrice)}\n\nPlease confirm my order. 🙏`;
+    const waMessage = [
+      "Hello! I'd like to place an order:\n",
+      waLines,
+      deliveryFee === 0
+        ? "\n✅ Free shipping applies (order above ₹999)"
+        : `\n🚚 Shipping: ${formatPrice(deliveryFee)}`,
+      `\n*Total: ${formatPrice(grandTotal)}*`,
+      "\nPlease confirm availability and share payment details. Thank you!",
+    ].join('');
 
     window.open(
-      `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`,
+      `https://wa.me/${WHATSAPP_NUMBER.replace(/\s+/g, '')}?text=${encodeURIComponent(waMessage)}`,
       '_blank',
       'noopener,noreferrer'
     );

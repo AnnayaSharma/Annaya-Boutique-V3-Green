@@ -13,4 +13,4 @@ export function formatPrice(price: number) {
   }).format(price);
 }
 
-export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '919876543210';
+export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '9174949 54286';
