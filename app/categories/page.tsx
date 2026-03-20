@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ChevronRight } from 'lucide-react';
@@ -10,7 +10,7 @@ import ProductCard from '@/components/ProductCard';
 import Image from 'next/image';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
-export default function CategoriesPage() {
+function CategoriesContent() {
   const searchParams = useSearchParams();
   const { products, isLoading } = useShop();
   const catParam = searchParams.get('cat');
@@ -169,5 +169,13 @@ export default function CategoriesPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function CategoriesPage() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <CategoriesContent />
+    </Suspense>
   );
 }

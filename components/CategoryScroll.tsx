@@ -33,7 +33,6 @@ const CategoryScroll: React.FC<CategoryScrollProps> = ({
         categoriesWithProducts.push({
           name: dbCat,
           icon: 'Sparkles', // Default icon for unknown categories
-          image: '',        // Not used in scroll but required by type
           exists: true
         });
       }

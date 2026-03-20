@@ -6,6 +6,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BottomNav from '@/components/BottomNav';
 import { Analytics } from '@vercel/analytics/react';
+import { connectDB } from '@/lib/mongodb';
+import { ProductModel } from '@/lib/models/Product';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,15 +30,32 @@ export const metadata: Metadata = {
   keywords: ['sarees', 'ethnic wear', 'boutique', 'Indian fashion', 'gowns'],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Fetch initial products on the server to reduce edge requests and improve LCP
+  let initialProducts = [];
+  try {
+    await connectDB();
+    const products = await ProductModel.find().sort({ createdAt: -1 }).lean();
+    initialProducts = JSON.parse(JSON.stringify(products)).map((p: any) => ({
+      ...p,
+      id: p._id.toString(),
+      _id: undefined,
+      __v: undefined,
+      createdAt: p.createdAt || null,
+      updatedAt: p.updatedAt || null,
+    }));
+  } catch (error) {
+    console.error('[RootLayout] Failed to fetch initial products:', error);
+  }
+
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body>
-        <ShopProvider>
+        <ShopProvider initialProducts={initialProducts}>
           <div className="min-h-screen flex flex-col">
             <Header />
             <main className="flex-grow">{children}</main>

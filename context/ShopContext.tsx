@@ -39,10 +39,14 @@ const ShopContext = createContext<ShopContextType | undefined>(undefined);
 
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
-export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({
+export const ShopProvider: React.FC<{ 
+  children: React.ReactNode;
+  initialProducts?: Product[];
+}> = ({
   children,
+  initialProducts = [],
 }) => {
-  const [products, setProducts]   = useState<Product[]>([]);
+  const [products, setProducts]   = useState<Product[]>(initialProducts);
   const [cart, setCart]           = useState<CartItem[]>([]);
   const [wishlist, setWishlist]   = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
