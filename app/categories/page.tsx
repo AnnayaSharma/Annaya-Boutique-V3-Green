@@ -62,6 +62,7 @@ function CategoriesContent() {
         <div className="flex items-center gap-3 mb-8">
           <Link
             href="/categories"
+            prefetch={false}
             className="text-sm font-medium text-emerald-700/60 hover:text-emerald-900 transition-colors"
           >
             Categories
@@ -123,6 +124,7 @@ function CategoriesContent() {
             <Link
               key={cat.name}
               href={`/categories?cat=${encodeURIComponent(cat.name)}`}
+              prefetch={false}
               className="group relative aspect-[16/10] lg:aspect-square rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-700"
             >
               {/* Image */}

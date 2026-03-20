@@ -86,6 +86,7 @@ export default function HomePage() {
                 {filteredProducts.length > 6 && (
                   <Link
                     href="/shop"
+                    prefetch={false}
                     className="w-[200px] lg:w-[250px] aspect-[3/4] flex flex-col items-center justify-center bg-emerald-50/30 rounded-[2.5rem] border-2 border-dashed border-emerald-950/10 group hover:border-emerald-900/30 transition-all"
                   >
                     <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-emerald-950 shadow-sm group-hover:scale-110 transition-transform mb-4">
@@ -128,6 +129,7 @@ export default function HomePage() {
               </h2>
               <Link
                 href="/shop"
+                prefetch={false}
                 className="w-fit bg-white text-emerald-950 px-8 py-3 rounded-full font-bold uppercase tracking-widest hover:bg-emerald-50 transition-all shadow-xl font-sans"
               >
                 Shop Bridal
@@ -149,6 +151,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/shop"
+              prefetch={false}
               className="flex items-center gap-2 text-xs font-bold text-emerald-700 uppercase tracking-widest group"
             >
               Explore More
@@ -204,6 +207,7 @@ export default function HomePage() {
               </h2>
               <Link
                 href="/shop"
+                prefetch={false}
                 className="w-fit bg-white text-emerald-950 px-8 py-3 rounded-full font-bold uppercase tracking-widest hover:bg-emerald-50 transition-all shadow-xl"
               >
                 Discover Now
@@ -226,6 +230,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/shop"
+              prefetch={false}
               className="flex items-center gap-2 text-xs font-bold text-emerald-700 uppercase tracking-widest group"
             >
               View All
