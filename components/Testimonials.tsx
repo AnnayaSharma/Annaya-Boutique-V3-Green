@@ -78,27 +78,17 @@ const TESTIMONIALS = [
   }
 ];
 
-// Avatar colours cycle through a warm emerald palette — no remote images needed.
-// This eliminates 12 /_next/image edge requests every time the homepage loads.
-const AVATAR_COLOURS = [
-  'bg-emerald-100 text-emerald-800',
-  'bg-teal-100 text-teal-800',
-  'bg-green-100 text-green-800',
-  'bg-lime-100 text-lime-800',
-  'bg-emerald-200 text-emerald-900',
-  'bg-teal-200 text-teal-900',
+const AVATAR_IMAGES = [
+  'https://res.cloudinary.com/douvhybil/image/upload/v1773984703/avatar_1_o9pzvv.avif',
+  'https://res.cloudinary.com/douvhybil/image/upload/v1773984703/avatar_2_d5h32p.avif',
+  'https://res.cloudinary.com/douvhybil/image/upload/v1773984703/avatar_6_lpcqf9.avif',
+  'https://res.cloudinary.com/douvhybil/image/upload/v1773984704/avatar_4_lv06yp.avif',
+  'https://res.cloudinary.com/douvhybil/image/upload/v1773984703/avatar_5_rnztun.avif',
+  'https://res.cloudinary.com/douvhybil/image/upload/v1773984704/avatar_3_zzrzcp.avif',
 ];
 
-const getInitials = (name: string) =>
-  name
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
-
 const TestimonialCard = ({ t }: { t: typeof TESTIMONIALS[0] }) => {
-  const colourClass = AVATAR_COLOURS[(t.id - 1) % AVATAR_COLOURS.length];
+  const avatarUrl = AVATAR_IMAGES[(t.id - 1) % AVATAR_IMAGES.length];
 
   return (
     <div
@@ -107,9 +97,14 @@ const TestimonialCard = ({ t }: { t: typeof TESTIMONIALS[0] }) => {
       <Quote className="absolute top-6 right-6 text-emerald-950/5 group-hover:text-luxury-gold/20 transition-colors" size={40} />
 
       <div className="flex items-center gap-4 mb-4">
-        <div className={`w-12 h-12 rounded-full flex items-center justify-center border-2 border-emerald-100 font-bold text-sm select-none shrink-0 ${colourClass}`}>
-          {getInitials(t.name)}
-        </div>
+        <img
+          src={avatarUrl}
+          alt={t.name}
+          width={48}
+          height={48}
+          className="w-12 h-12 rounded-full object-cover shrink-0 border-2 border-emerald-100 shadow-sm"
+          loading="lazy"
+        />
         <div>
           <h4 className="text-sm font-bold text-emerald-950">{t.name}</h4>
           <p className="text-[10px] font-medium text-emerald-700/60 uppercase tracking-widest">{t.role}</p>

@@ -2,6 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   images: {
+    unoptimized: true,
     // ─── CRITICAL: Cache optimized images for 30 days (default is 60s!) ───────
     // This means a given image+size variant is only processed ONCE per month.
     // Without this, every repeat visitor re-triggers a /_next/image edge request.
