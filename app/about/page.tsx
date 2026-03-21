@@ -9,7 +9,7 @@ import {
 
 const STATS = [
   { value: '30+',  label: 'Years of Heritage'  },
-  { value: '10k+', label: 'Happy Clients'       },
+  { value: '100k+', label: 'Happy Customers'       },
   { value: '500+', label: 'Artisans Supported'  },
 ];
 
