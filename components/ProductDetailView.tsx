@@ -13,6 +13,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Product } from '@/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import ShippingAddressModal, { ShippingAddress } from '@/components/ShippingAddressModal';
 
 interface ProductDetailViewProps {
   initialProduct: Product;
@@ -27,6 +28,7 @@ export default function ProductDetailView({ initialProduct }: ProductDetailViewP
   const [selectedColor, setSelectedColor] = useState(initialProduct.colors?.[0]?.name ?? 'Any Colour');
   const [activeImage, setActiveImage] = useState(0);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [showAddressModal, setShowAddressModal] = useState(false);
 
   // Synchronise if global products list updates and has more fresh data
   useEffect(() => {
@@ -48,6 +50,21 @@ export default function ProductDetailView({ initialProduct }: ProductDetailViewP
     } catch {
       navigator.clipboard.writeText(window.location.href);
     }
+  };
+
+  const handleWhatsAppOrder = (address: ShippingAddress) => {
+    setShowAddressModal(false);
+
+    const addressBlock = [
+      '\n\n📦 *Shipping Details:*',
+      `Name: ${address.fullName}`,
+      `Phone: ${address.phone}`,
+      `Address: ${address.addressLine1}${address.addressLine2 ? ', ' + address.addressLine2 : ''}`,
+      `City: ${address.city} | State: ${address.state} | Pincode: ${address.pincode}`,
+    ].join('\n');
+
+    const waMessage = `Hello!\n\nI'm interested in ordering the *${product.name}*.\n\nSize: ${selectedSize}\nColor: ${selectedColor}\nPrice: ${formatPrice(product.price)}${addressBlock}\n\nPlease confirm availability and share payment details. Thank you!`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER.replace(/\s+/g, '')}?text=${encodeURIComponent(waMessage)}`, '_blank');
   };
 
   return (
@@ -269,10 +286,7 @@ export default function ProductDetailView({ initialProduct }: ProductDetailViewP
               </div>
 
               <button
-                onClick={() => {
-                  const waMessage = `Hello!\n\nI'm interested in ordering the *${product.name}*.\n\nSize: ${selectedSize}\nColor: ${selectedColor}\nPrice: ${formatPrice(product.price)}\n\nIs this available?`;
-                  window.open(`https://wa.me/${WHATSAPP_NUMBER.replace(/\s+/g, '')}?text=${encodeURIComponent(waMessage)}`, '_blank');
-                }}
+                onClick={() => setShowAddressModal(true)}
                 className="w-full h-16 rounded-full border-2 border-emerald-900/20 text-emerald-950 font-bold tracking-widest bg-green-300 hover:bg-emerald-50 transition-all flex items-center justify-center gap-3"
               >
                 <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
@@ -303,6 +317,13 @@ export default function ProductDetailView({ initialProduct }: ProductDetailViewP
           </div>
         </div>
       </div>
+
+      {/* Shipping Address Modal */}
+      <ShippingAddressModal
+        isOpen={showAddressModal}
+        onClose={() => setShowAddressModal(false)}
+        onSubmit={handleWhatsAppOrder}
+      />
     </div>
   );
 }

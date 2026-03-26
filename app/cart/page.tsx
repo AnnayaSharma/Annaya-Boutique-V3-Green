@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, MessageCircle } from 'lucide-react';
 import { useShop } from '@/context/ShopContext';
@@ -8,17 +8,29 @@ import { formatPrice, WHATSAPP_NUMBER } from '@/utils';
 import CartItemRow from '@/components/CartItemRow';
 import EmptyState from '@/components/EmptyState';
 import { motion } from 'motion/react';
+import ShippingAddressModal, { ShippingAddress } from '@/components/ShippingAddressModal';
 
 export default function CartPage() {
   const { cart, totalPrice, clearCart } = useShop();
+  const [showAddressModal, setShowAddressModal] = useState(false);
 
-  const handleCheckout = () => {
+  const handleCheckout = (address: ShippingAddress) => {
+    setShowAddressModal(false);
+
     const waLines = cart
       .map(
         (item) =>
           `• ${item.name} (${item.selectedSize}${item.selectedColor ? ` / ${item.selectedColor}` : ''}) ×${item.quantity} — ${formatPrice(item.price * item.quantity)}`
       )
       .join('\n');
+
+    const addressBlock = [
+      '\n\n📦 *Shipping Details:*',
+      `Name: ${address.fullName}`,
+      `Phone: ${address.phone}`,
+      `Address: ${address.addressLine1}${address.addressLine2 ? ', ' + address.addressLine2 : ''}`,
+      `City: ${address.city} | State: ${address.state} | Pincode: ${address.pincode}`,
+    ].join('\n');
 
     const waMessage = [
       "Hello! I'd like to place an order:\n",
@@ -27,7 +39,8 @@ export default function CartPage() {
         ? "\n✅ Free shipping applied"
         : `\n🚚 Shipping: ${formatPrice(deliveryFee)}`,
       `\n*Total: ${formatPrice(grandTotal)}*`,
-      "\nPlease confirm availability and share payment details. Thank you!",
+      addressBlock,
+      "\n\nPlease confirm availability and share payment details. Thank you!",
     ].join('');
 
     window.open(
@@ -106,7 +119,7 @@ export default function CartPage() {
         </div>
 
         <button
-          onClick={handleCheckout}
+          onClick={() => setShowAddressModal(true)}
           className="w-full bg-white text-emerald-950 h-16 rounded-full font-bold uppercase tracking-widest hover:bg-emerald-50 transition-all flex items-center justify-center gap-3 shadow-xl"
         >
           <MessageCircle size={20} className="fill-emerald-950" />
@@ -117,6 +130,13 @@ export default function CartPage() {
           Secure Checkout • No Payment Required Now
         </p>
       </div>
+
+      {/* Shipping Address Modal */}
+      <ShippingAddressModal
+        isOpen={showAddressModal}
+        onClose={() => setShowAddressModal(false)}
+        onSubmit={handleCheckout}
+      />
     </div>
   );
 }
