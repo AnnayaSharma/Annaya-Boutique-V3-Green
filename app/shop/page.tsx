@@ -3,7 +3,6 @@
 import React, { useState, useMemo } from 'react';
 import { useShop } from '@/context/ShopContext';
 import ProductCard from '@/components/ProductCard';
-import LoadingSpinner from '@/components/LoadingSpinner';
 import { ChevronLeft, ChevronRight, LayoutGrid, List, AlertCircle } from 'lucide-react';
 import { cn } from '@/utils';
 

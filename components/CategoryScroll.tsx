@@ -8,6 +8,7 @@ import * as Icons from 'lucide-react';
 
 interface CategoryScrollProps {
   active?: string;
+  // eslint-disable-next-line no-unused-vars
   onSelect?: (name: string) => void;
 }
 

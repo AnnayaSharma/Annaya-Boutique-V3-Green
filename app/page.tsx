@@ -9,7 +9,6 @@ import ProductCard from '@/components/ProductCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import Testimonials from '@/components/Testimonials';
 import { useShop } from '@/context/ShopContext';
-import { motion } from 'motion/react';
 import { Sparkles, TrendingUp, ArrowRight, AlertCircle } from 'lucide-react';
 
 export default function HomePage() {

@@ -4,7 +4,6 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { motion } from 'motion/react';
 
 const Hero: React.FC = () => (
   <section className="relative w-full h-[70vh] lg:h-[85vh] overflow-hidden">

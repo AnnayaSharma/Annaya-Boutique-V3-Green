@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Quote } from 'lucide-react';
 
 const TESTIMONIALS = [
@@ -97,13 +98,12 @@ const TestimonialCard = ({ t }: { t: typeof TESTIMONIALS[0] }) => {
       <Quote className="absolute top-6 right-6 text-emerald-950/5 group-hover:text-luxury-gold/20 transition-colors" size={40} />
 
       <div className="flex items-center gap-4 mb-4">
-        <img
+        <Image
           src={avatarUrl}
           alt={t.name}
-          width="48"
-          height="48"
+          width={48}
+          height={48}
           className="w-12 h-12 rounded-full object-cover shrink-0 border-2 border-emerald-100 shadow-sm"
-          loading="lazy"
         />
         <div>
           <h4 className="text-sm font-bold text-emerald-950">{t.name}</h4>
@@ -112,7 +112,7 @@ const TestimonialCard = ({ t }: { t: typeof TESTIMONIALS[0] }) => {
       </div>
 
       <p className="text-sm text-emerald-950/80 leading-relaxed">
-        "{t.text}"
+        &quot;{t.text}&quot;
       </p>
     </div>
   );
@@ -142,7 +142,7 @@ const Testimonials: React.FC = () => {
           Client Reviews & Feedback!
         </span>
         <h2 className="text-3xl lg:text-5xl font-serif font-bold text-emerald-950">
-          My Customer's Happiness is my Earning!
+          My Customer&apos;s Happiness is my Earning!
         </h2>
       </div>
     </section>
